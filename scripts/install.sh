@@ -29,11 +29,13 @@ sudo apt-get install -y puppet-agent
 echo "==> Upgrading apt packages"
 sudo apt-get upgrade -y -qq
 
-echo "Removing sample puppet production environment"
+echo "==> Removing sample puppet production environment"
 sudo rm -rf /etc/puppetlabs/code/environments/production
 
+
 echo "==> Configuring puppet-infra git repo"
-git clone -b develop https://github.com/meloddik/puppet-infra.git /etc/puppetlabs/code/environments/production
+sudo install -m 744 -o ubuntu -g ubuntu -d /etc/puppetlabs/code/environments/production
+sudo -u ubuntu git clone -b develop https://github.com/meloddik/puppet-infra.git /etc/puppetlabs/code/environments/production
 
 echo "==> Installing ruby gems within puppet context"
 sudo /opt/puppetlabs/puppet/bin/gem install gpgme --no-document
